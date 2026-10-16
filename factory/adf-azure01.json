@@ -1,0 +1,15 @@
+{
+	"name": "adf-azure01",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cb80e6e0-fbec-45e4-9057-ced009e7e8de",
+		"tenantId": "5d1057b2-e1d2-419f-ac29-1eb25feb4b36"
+	}
+}
