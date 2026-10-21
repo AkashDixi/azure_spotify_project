@@ -1,0 +1,15 @@
+{
+	"name": "ADF-Azure-Proj-01",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bb8e7ac3-5129-4a2d-90b3-e488b8f9dd68",
+		"tenantId": "8124799a-1bee-4c1d-bf8a-e9f61b5e2bd5"
+	}
+}
