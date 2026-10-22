@@ -9,6 +9,11 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.loop_parameter",
+						"type": "Expression"
+					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "SQL_to_ADLS_Copy",
@@ -40,7 +45,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from @{item().schema}.@{item().table} where @{item().cdc_column} >'@{if(empty(item().from_date),activity('Lookup_last_cdc_file').output.firstRow.cdc,item().from_date)}'\n",
+										"value": "SELECT * FROM @{item().schema}.@{item().table}\nWHERE @{item().cdc_column} >\n'@{if(empty(item().from_date),activity('Lookup_last_cdc_file').output.firstRow.cdc,item().from_date)}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -185,7 +190,7 @@
 												"parameters": {
 													"container": "bronze",
 													"folder": {
-														"value": "@{pipeline().parameters.table}",
+														"value": "@{item().table}",
 														"type": "Expression"
 													},
 													"file": "@concat(pipeline().parameters.table, '_',variables('current'))"
@@ -326,31 +331,31 @@
 					{
 						"schema": "dbo",
 						"table": "DimUser",
-						"cdc_column": "updated_at",
+						"cdc_col": "updated_at",
 						"from_date": ""
 					},
 					{
 						"schema": "dbo",
 						"table": "DimTrack",
-						"cdc_column": "updated_at",
-						"from_date": ""
-					},
-					{
-						"schema": "dbo",
-						"table": "DimArtist",
-						"cdc_column": "updated_at",
+						"cdc_col": "updated_at",
 						"from_date": ""
 					},
 					{
 						"schema": "dbo",
 						"table": "DimDate",
-						"cdc_column": "updated_at",
+						"cdc_col": "date",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimArtist",
+						"cdc_col": "updated_at",
 						"from_date": ""
 					},
 					{
 						"schema": "dbo",
 						"table": "FactStream",
-						"cdc_column": "updated_at",
+						"cdc_col": "stream_timestamp",
 						"from_date": ""
 					}
 				]
